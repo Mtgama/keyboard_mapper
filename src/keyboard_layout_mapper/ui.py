@@ -1,5 +1,6 @@
 """Main window UI for Keyboard Layout Mapper."""
 
+import sys
 from pathlib import Path
 
 from PyQt6.QtCore import QEvent, Qt, QTimer
@@ -25,7 +26,15 @@ from .hotkey import HotkeyService
 from .input_handler import event_to_hotkey
 from .mapper import map_text
 
-ICON_DIR = Path(__file__).resolve().parent.parent.parent / "assets"
+
+def _get_icon_dir() -> Path:
+    """Get icon directory, handling PyInstaller bundle."""
+    if getattr(sys, "frozen", False):
+        return Path(sys._MEIPASS) / "assets"
+    return Path(__file__).resolve().parent.parent.parent / "assets"
+
+
+ICON_DIR = _get_icon_dir()
 
 
 class MainWindow(QMainWindow):
