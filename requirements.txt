@@ -1,0 +1,3 @@
+PyQt6>=6.6
+pynput>=1.7
+python-xlib>=0.33
